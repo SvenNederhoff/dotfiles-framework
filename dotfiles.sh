@@ -759,9 +759,7 @@ function update_help()
 		If it is not given, all repositories will be updateed.
 
 		Run 'fetch', 'patch', and 'link' sequentially on each repository
-		to bring them in sync with the central repositories.  Keeps track
-		of the last update time to avoid multiple fetches in the same
-		week.
+		to bring them in sync with the central repositories.
 
 		${COMMAND} passes any options it receives through to the link
 		command.
@@ -779,19 +777,13 @@ function update()
 	REPO=$(nonempty_option 'update' 'REPO' "${1}") || return 1
 	maxargs 'disconnect' 1 "${@}" || return 1
 
-	# Update once a week from our remote repository.  Mark updates by
-	# touching this file.
-	UPDATE_FILE="${REPO}/updated.$(date +%U)"
-
-	if [ ! -e "${UPDATE_FILE}" ]; then
-		echo "update ${REPO} dotfiles"
-		"${RM}" -f "${REPO}"/updated.* || return 1
-		"${TOUCH}" "${UPDATE_FILE}" || return 1
-		fetch "${REPO}" || return 1
-		patch "${REPO}" || return 1
-		link ${LINK_OPTS} "${REPO}" || return 1
-		echo "${REPO} dotfiles updated"
-	fi
+	echo "update ${REPO} dotfiles"
+	"${RM}" -f "${REPO}"/updated.* || return 1
+	"${TOUCH}" "${UPDATE_FILE}" || return 1
+	fetch "${REPO}" || return 1
+	patch "${REPO}" || return 1
+	link ${LINK_OPTS} "${REPO}" || return 1
+	echo "${REPO} dotfiles updated"
 }
 
 #####
