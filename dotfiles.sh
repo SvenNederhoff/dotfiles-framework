@@ -18,7 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-VERSION='0.4'
 DOTFILES_DIR="${PWD}"
 TARGET=~
 CHECK_WGET_TYPE_AND_ENCODING='no'
@@ -826,10 +825,6 @@ function main()
 		case "${1}" in
 			'--help')
 				main_help || return 1
-				return
-				;;
-			'--version')
-				echo "${VERSION}"
 				return
 				;;
 			'--dotfiles-dir')
