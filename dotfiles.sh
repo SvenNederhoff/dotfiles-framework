@@ -186,7 +186,7 @@ function git_fetch()
 	REPO=$(nonempty_option 'git_fetch' 'REPO' "${1}") || return 1
 	REMOTES=$(cd "${REPO}" && "${GIT}" remote) || return 1
 	if [ -n "${REMOTES}" ]; then
-		(cd "${REPO}" && "${GIT}" pull) || return 1
+		(cd "${REPO}" && "${GIT}" pull --rebase --recurse-submodules) || return 1
 	else
 		echo "no remote repositories found for ${REPO}"
 	fi
