@@ -777,8 +777,6 @@ function update()
 	maxargs 'disconnect' 1 "${@}" || return 1
 
 	echo "update ${REPO} dotfiles"
-	"${RM}" -f "${REPO}"/updated.* || return 1
-	"${TOUCH}" "${UPDATE_FILE}" || return 1
 	fetch "${REPO}" || return 1
 	patch "${REPO}" || return 1
 	link ${LINK_OPTS} "${REPO}" || return 1
