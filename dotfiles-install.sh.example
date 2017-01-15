@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+source /etc/environment
+cd "$HOME/.dotfiles"
+
+shopt -s nullglob
+set -x
+
+for script in */preinstall.sh
+do
+	$script
+done
+
+dotfiles.sh patch
+dotfiles.sh link --force-file --relative
+
+for script in */postinstall.sh
+do
+	$script
+done
